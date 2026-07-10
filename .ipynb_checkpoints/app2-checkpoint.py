@@ -96,18 +96,19 @@ if bairro_selecionado != 'Todos':
     # gráfico com as variáveis dinâmicas
     fig_violacoes_bairro = px.bar(
         df_grafico_filtrado,
-        x='porcentagem', 
+        x='quantidade', 
         y=eixo_y, 
         title=titulo_grafico, 
         orientation="h", 
         color=cor_barra, 
         barmode=barmode_tipo,
         labels={
-            'porcentagem': 'Porcentagem (%)', 
+            'porcentagem': 'Quantidade', 
             'bairro_da_vítima': 'Bairro', 
             'tipo_de_violência_denunciada': 'Tipo de Violação'
         },
-        text=df_grafico_filtrado['porcentagem'].round(1).astype(str) + '%',
+      #  text=df_grafico_filtrado['porcentagem'].round(1).astype(str) + '%',
+        text=df_grafico_filtrado['quantidade'].round(1).astype(str)
     )
 
     fig_violacoes_bairro.update_yaxes(categoryorder='total ascending')
@@ -134,18 +135,19 @@ else:
     # gráfico com as variáveis dinâmicas
     fig_violacoes_bairro = px.bar(
         df_grafico_filtrado,
-        x='porcentagem', 
+        x='quantidade', 
         y=eixo_y, 
         title=titulo_grafico, 
         orientation="h", 
         color=cor_barra, 
         barmode=barmode_tipo,
         labels={
-            'porcentagem': 'Porcentagem (%)', 
+            'porcentagem': 'Quantidade', 
             'bairro_da_vítima': 'Bairro', 
             'tipo_de_violência_denunciada': 'Tipo de Violação'
         },
-        text=df_grafico_filtrado['porcentagem'].round(1).astype(str) + '%',
+      #  text=df_grafico_filtrado['porcentagem'].round(1).astype(str) + '%',
+        text=df_grafico_filtrado['quantidade'].round(1).astype(str),
     )
     # Força o eixo Y a obedecer à ordem matemática calculada
     fig_violacoes_bairro.update_yaxes(categoryorder='array', categoryarray=top_bairros)     
@@ -242,12 +244,12 @@ if len(generos) >= 2:
 #    print(df_g1)
     fig_piramide.add_trace(go.Bar(
         y=df_g1[col_idade],
-        x=df_g1['porcentagem'],
+        x=df_g1['quantidade'],
         name=str(generos[0]),
         orientation='h',
         marker_color='lightcoral',    
-        text=df_g1['porcentagem'].fillna(0),              # Define o dado que vira rótulo
-        texttemplate='%{text:.1f}%',            # Formato em % do texto
+        text=df_g1['quantidade'].fillna(0),              # Define o dado que vira rótulo
+      #  texttemplate='%{text:.1f}%',            # Formato em % do texto
         textposition='outside'                  # Posição: fora da barra
     ))
 
@@ -262,11 +264,11 @@ if len(generos) >= 2:
 
     fig_piramide.add_trace(go.Bar(
         y=df_g2[col_idade],
-        x=df_g2['porcentagem'] * -1, # Multiplica por -1 para ir para a esquerda
+        x=df_g2['quantidade'] * -1, # Multiplica por -1 para ir para a esquerda
         name=str(generos[1]),
         orientation='h',
-        text=df_g2['porcentagem'].fillna(0),              # Define o dado que vira rótulo
-        texttemplate='%{text:.1f}%',            # Formato em % do texto
+        text=df_g2['quantidade'].fillna(0),              # Define o dado que vira rótulo
+    #    texttemplate='%{text:.1f}',            # Formato em % do texto
         textposition='outside'                  # Posição: fora da barra
     ))
 
@@ -277,8 +279,8 @@ if len(generos) >= 2:
 
 # Encontra a maior porcentagem registrada entre os dois gêneros, considerando que algum deles pode ser 0
 #maior_porcentagem = max(df_g1['porcentagem'].max(), df_g2['porcentagem'].max())
-pct_g1 = df_g1['porcentagem'].max() if ('df_g1' in locals() and not df_g1.empty) else 0
-pct_g2 = df_g2['porcentagem'].max() if ('df_g2' in locals() and not df_g2.empty) else 0
+pct_g1 = df_g1['quantidade'].max() if ('df_g1' in locals() and not df_g1.empty) else 0
+pct_g2 = df_g2['quantidade'].max() if ('df_g2' in locals() and not df_g2.empty) else 0
 
 maior_porcentagem = max(pct_g1, pct_g2)
 # Define o limite adicionando uma folga
@@ -286,8 +288,9 @@ limite_eixo = maior_porcentagem + 20
 
 # Cria marcações de escala 10 em 10%
 valores_ticks = list(range(-int(limite_eixo), int(limite_eixo) + 1, 10))
-textos_ticks = [f"{abs(x)}%" for x in valores_ticks] # Exibe positivo e com símbolo % no rodapé
+#textos_ticks = [f"{abs(x)}%" for x in valores_ticks] # Exibe positivo e com símbolo % no rodapé
 
+textos_ticks = [f"{abs(x)}" for x in valores_ticks] # Exibe positivo
 
 # Atualiza o layout do gráfico
 fig_piramide.update_layout(
