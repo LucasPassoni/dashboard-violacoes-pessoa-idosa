@@ -9,7 +9,7 @@ pd.set_option('display.max_columns', None)
 st.set_page_config(page_title="Dashboard Violações", layout="wide")
 
 # 2. Carregando a base de dados
-df = pd.read_excel('denuncias-2023-2025.xlsx')
+df = pd.read_excel('denuncias-2023-2026.xlsx')
 
 print(df)
 st.sidebar.header("Filtros")
