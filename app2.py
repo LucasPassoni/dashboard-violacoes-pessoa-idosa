@@ -7,6 +7,7 @@ pd.set_option('display.max_columns', None)
 
 # 1. Configurando a página
 st.set_page_config(page_title="Dashboard Violações", layout="wide")
+st.title("Dashboard Violações")
 st.subheader("OBS: Dados de 2026 disponíveis até Março.")
 
 # 2. Carregando a base de dados
