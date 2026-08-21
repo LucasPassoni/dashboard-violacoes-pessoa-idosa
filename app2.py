@@ -7,6 +7,7 @@ pd.set_option('display.max_columns', None)
 
 # 1. Configurando a página
 st.set_page_config(page_title="Dashboard Violações", layout="wide")
+st.subheader("OBS: Dados de 2026 disponíveis até Março.")
 
 # 2. Carregando a base de dados
 df = pd.read_excel('denuncias-2023-2026.xlsx')
@@ -91,7 +92,7 @@ if bairro_selecionado != 'Todos':
     cor_barra = 'tipo_de_violência_denunciada'
     barmode_tipo = 'group' 
     sequencia_eixo_y = df_grafico_filtrado['tipo_de_violência_denunciada'].tolist()
-    titulo_grafico = f'Porcentagem de Violações no Bairro {bairro_selecionado}'
+    titulo_grafico = f'Violações no Bairro {bairro_selecionado}'
 
     # gráfico com as variáveis dinâmicas
     fig_violacoes_bairro = px.bar(
